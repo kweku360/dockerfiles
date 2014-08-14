@@ -1,7 +1,7 @@
 # Docker Buile file for Carina - Base 
 # ---------------------------------------------------
  
-FROM           ubuntu
+FROM           kweku360/carina-base
 MAINTAINER     Kweku Kankam <kweku360@gmail.com>
 
 #Compile and update unbuntu source lists
@@ -13,6 +13,10 @@ RUN apt-get upgrade -y
 RUN apt-get install -y openssh-server apache2 supervisor
 RUN mkdir -p /var/run/sshd
 RUN mkdir -p /var/log/supervisor
+
+#Change Root Password for ssh
+RUN  echo "root:theProfit" | chpasswd
+#RUN echo -e "theProfit\ntheProfit" | (passwd --stdin $USER)
 
 #Add Configuration File Supervisor
 ADD sourcefiles/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
